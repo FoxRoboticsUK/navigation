@@ -27,18 +27,24 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include <bondcpp/bond.h>
 #include <move_base/move_base.h>
 #include <tf2_ros/transform_listener.h>
 
-int main(int argc, char** argv){
+int main(int argc, char** argv) {
   ros::init(argc, argv, "move_base_node");
   tf2_ros::Buffer buffer(ros::Duration(10));
   tf2_ros::TransformListener tf(buffer);
 
-  move_base::MoveBase move_base( buffer );
+  bond::Bond bond("move_base_bond", "move_base_id");
+  bond.start();
 
-  //ros::MultiThreadedSpinner s;
+  move_base::MoveBase move_base(buffer);
+
+  // ros::MultiThreadedSpinner s;
   ros::spin();
 
-  return(0);
+  bond.~Bond();
+
+  return (0);
 }
