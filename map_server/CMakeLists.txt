@@ -4,6 +4,7 @@ project(map_server)
 find_package(catkin REQUIRED
         COMPONENTS
             roscpp
+            bondcpp
             nav_msgs
             tf2
         )
